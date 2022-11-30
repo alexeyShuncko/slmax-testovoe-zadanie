@@ -36,7 +36,7 @@ const AddNote = ({data, setData}: PropsAddNote) => {
           active: false,
           remove: false,
           x1: 0,
-          x2: 0,
+          x2: 700,
         },
       ]);
       setName('');

@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import {INote} from '../App';
 
 type PropsNoteList = {
@@ -77,7 +83,8 @@ const NoteList = ({data, setData}: PropsNoteList) => {
                       data[i].remove = !data[i].remove;
                       setData([...data]);
                     }}>
-                    <Text style={styles.btnText}>{text}</Text>
+                    <ActivityIndicator color={'#fff'} />
+                    <Text style={styles.btnNum}>{text}</Text>
                   </TouchableOpacity>
                 )}
               </View>
@@ -174,6 +181,12 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   btnText: {
+    color: '#fff',
+  },
+  btnNum: {
+    position: 'absolute',
+    top: 10,
+    right: 29,
     color: '#fff',
   },
   noNote: {
