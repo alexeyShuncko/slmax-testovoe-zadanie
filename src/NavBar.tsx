@@ -1,21 +1,34 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import Swiper from 'react-native-swiper';
 
 const NavBar = () => {
   return (
     <View style={styles.navbar}>
       <Image style={styles.img} source={require('./Rectangle-5.png')} />
       <Image style={styles.img} source={require('./Rectangle-4.png')} />
-      <Text style={styles.text}>Заметки</Text>
+
+      <Swiper showsPagination={false} loop={false}>
+        <View style={styles.wrapper}>
+          <Text style={styles.text}>Заметки</Text>
+        </View>
+        <View style={styles.wrapper}>
+          <Text style={styles.text}>Свапер</Text>
+        </View>
+      </Swiper>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   navbar: {
     position: 'relative',
     height: 200,
-    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -10,8 +10,6 @@ export interface INote {
   dateNote: string;
   active: boolean;
   remove: boolean;
-  x1: number;
-  x2: number;
 }
 
 const App = () => {
@@ -24,8 +22,6 @@ const App = () => {
       dateNote: '29-11-2022',
       active: false,
       remove: false,
-      x1: 0,
-      x2: 700,
     },
     {
       name: 'Название1',
@@ -35,8 +31,6 @@ const App = () => {
       dateNote: '29-11-2022',
       active: false,
       remove: false,
-      x1: 0,
-      x2: 700,
     },
     {
       name: 'Название2',
@@ -46,8 +40,6 @@ const App = () => {
       dateNote: '29-11-2022',
       active: false,
       remove: false,
-      x1: 0,
-      x2: 700,
     },
   ]);
   return (

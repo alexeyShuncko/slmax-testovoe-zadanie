@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
+import {View, TextInput, StyleSheet, Alert} from 'react-native';
 import {INote} from '../App';
 
 type PropsAddNote = {
@@ -35,12 +35,11 @@ const AddNote = ({data, setData}: PropsAddNote) => {
           dateNote: dateString(new Date()),
           active: false,
           remove: false,
-          x1: 0,
-          x2: 700,
         },
       ]);
       setName('');
       setDescription('');
+      Alert.alert('Успешно!', `Заметка "${name}" добавлена.`);
     }
   };
   return (

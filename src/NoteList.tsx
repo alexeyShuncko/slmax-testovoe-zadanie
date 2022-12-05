@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {INote} from '../App';
+import Swiper from 'react-native-swiper';
 
 type PropsNoteList = {
   data: INote[];
@@ -15,6 +17,7 @@ type PropsNoteList = {
 
 const NoteList = ({data, setData}: PropsNoteList) => {
   const [text, setText] = useState(5);
+  const swiper = useRef(null);
 
   const timer = (num: number, item: INote) => {
     let my = num;
@@ -30,6 +33,7 @@ const NoteList = ({data, setData}: PropsNoteList) => {
       } else {
         setText(5);
         setData([...data.filter(el => el.name !== item.name)]);
+        Alert.alert('Успешно!', `Заметка "${item.name}" удалена.`);
       }
     }, 1000);
 
@@ -40,23 +44,33 @@ const NoteList = ({data, setData}: PropsNoteList) => {
     <View style={styles.block}>
       {data.length !== 0 ? (
         data.map((item, i) => (
-          <View key={item.name}>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => {
-                data[i].active = !data[i].active;
+          <View key={i} ref={swiper}>
+            <Swiper
+              height={50}
+              showsPagination={false}
+              loop={false}
+              onIndexChanged={() => {
+                data[i].active = false;
                 setData([...data]);
               }}>
-              <View
-                style={styles.note}
-                onTouchStart={e => {
-                  data[i].x1 = e.nativeEvent.changedTouches[0].pageX;
-                  setData([...data]);
-                }}
-                onTouchEnd={e => {
-                  data[i].x2 = e.nativeEvent.changedTouches[0].pageX;
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={() => {
+                  data[i].active = !data[i].active;
                   setData([...data]);
                 }}>
+                <View style={styles.note}>
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.description}>
+                    {item.description.slice(0, 20) + '...'}
+                  </Text>
+                  <Text
+                    style={[styles.arrow, {transform: [{rotate: '45deg'}]}]}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <View style={styles.note}>
                 <Text style={styles.name}>{item.name}</Text>
                 <Text style={styles.description}>
                   {item.description.slice(0, 20) + '...'}
@@ -65,30 +79,29 @@ const NoteList = ({data, setData}: PropsNoteList) => {
                   style={[styles.arrow, {transform: [{rotate: '45deg'}]}]}
                 />
 
-                {!item.remove && item.x1 - item.x2 > 50 && (
-                  <TouchableOpacity
-                    style={styles.btn}
-                    onPress={() => {
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() => {
+                    if (data[i].remove === false) {
                       data[i].remove = !data[i].remove;
                       setData([...data]);
                       timer(5, item);
-                    }}>
-                    <Text style={styles.btnText}>Удалить</Text>
-                  </TouchableOpacity>
-                )}
-                {item.remove && (
-                  <TouchableOpacity
-                    style={styles.btn}
-                    onPress={() => {
+                    } else {
                       data[i].remove = !data[i].remove;
                       setData([...data]);
-                    }}>
-                    <ActivityIndicator color={'#fff'} />
-                    <Text style={styles.btnNum}>{text}</Text>
-                  </TouchableOpacity>
-                )}
+                    }
+                  }}>
+                  {data[i].remove === false ? (
+                    <Text style={styles.btnText}>Удалить </Text>
+                  ) : (
+                    <>
+                      <ActivityIndicator color={'#fff'} />
+                      <Text style={styles.btnNum}>{text}</Text>
+                    </>
+                  )}
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
+            </Swiper>
 
             {item.active === true && (
               <View style={styles.fullDescriptionBlock}>
