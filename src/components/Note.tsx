@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {INote} from '../../App';
 import Swiper from 'react-native-swiper';
+import Comment from './Comment';
 
 type PropsNote = {
   data: INote[];
@@ -104,6 +105,11 @@ const Note = ({data, note, setData}: PropsNote) => {
         <View style={styles.fullDescriptionBlock}>
           <Text style={styles.date}>{dataNote.dateNote}</Text>
           <Text style={styles.fullDescription}>{dataNote.description}</Text>
+          <View>
+            {dataNote.comments.map(com => (
+              <Comment com={com} key={com.title} />
+            ))}
+          </View>
         </View>
       )}
     </View>
@@ -136,6 +142,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 8,
     fontWeight: '300',
+    color: 'black',
   },
   arrow: {
     position: 'absolute',
@@ -165,6 +172,7 @@ const styles = StyleSheet.create({
   fullDescription: {
     textAlign: 'left',
     fontSize: 10,
+    color: 'black',
   },
   btn: {
     position: 'absolute',

@@ -10,36 +10,74 @@ export interface INote {
   dateNote: string;
   active: boolean;
   remove: boolean;
+  comments: IComment[];
+}
+
+export interface IComment {
+  title: string;
+  description: string;
+  dateComment: string;
+  response: IResponse[];
+}
+
+export interface IResponse {
+  title: string;
+  description: string;
+  dateResponse: string;
 }
 
 const App = () => {
   const [data, setData] = useState<INote[]>([
     {
-      name: 'Название',
+      name: 'Заметка',
       description: `Идейные соображения высшего порядка, 
 а также реализация намеченных плановых заданий представляет собой интересный эксперимент 
 проверки модели развития`,
       dateNote: '29-11-2022',
       active: false,
       remove: false,
-    },
-    {
-      name: 'Название1',
-      description: `Идейные соображения высшего порядка,
-     а также реализация намеченных плановых заданий представляет собой интересный эксперимент
-     проверки модели развития`,
-      dateNote: '29-11-2022',
-      active: false,
-      remove: false,
-    },
-    {
-      name: 'Название2',
-      description: `Идейные соображения высшего порядка,
-     а также реализация намеченных плановых заданий представляет собой интересный эксперимент
-     проверки модели развития`,
-      dateNote: '29-11-2022',
-      active: false,
-      remove: false,
+      comments: [
+        {
+          title: 'Коментарий1',
+          description:
+            'Идейные соображения высшего порядка, а также реализация намеченных ',
+          dateComment: '30.11.2022 в 18.00',
+          response: [
+            {
+              title: 'Ответ1',
+              description:
+                'Идейные соображения высшего порядка, а также реализация намеченных ',
+              dateResponse: '30.11.2022 в 18.00',
+            },
+            {
+              title: 'Ответ2',
+              description:
+                'Идейные соображения высшего порядка, а также реализация намеченных ',
+              dateResponse: '30.11.2022 в 18.00',
+            },
+          ],
+        },
+        {
+          title: 'Коментарий2',
+          description:
+            'Идейные соображения высшего порядка, а также реализация намеченных ',
+          dateComment: '30.11.2022 в 18.00',
+          response: [
+            {
+              title: 'Ответ1',
+              description:
+                'Идейные соображения высшего порядка, а также реализация намеченных ',
+              dateResponse: '30.11.2022 в 18.00',
+            },
+            {
+              title: 'Ответ2',
+              description:
+                'Идейные соображения высшего порядка, а также реализация намеченных ',
+              dateResponse: '30.11.2022 в 18.00',
+            },
+          ],
+        },
+      ],
     },
   ]);
   return (
