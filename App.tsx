@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import AddNote from './src/AddNote';
-import NavBar from './src/NavBar';
-import NoteList from './src/NoteList';
+import AddNote from './src/components/AddNote';
+import NavBar from './src/components/NavBar';
+import NoteList from './src/components/NoteList';
 
 export interface INote {
   name: string;
@@ -25,18 +25,18 @@ const App = () => {
     },
     {
       name: 'Название1',
-      description: `Идейные соображения высшего порядка, 
-а также реализация намеченных плановых заданий представляет собой интересный эксперимент 
-проверки модели развития`,
+      description: `Идейные соображения высшего порядка,
+     а также реализация намеченных плановых заданий представляет собой интересный эксперимент
+     проверки модели развития`,
       dateNote: '29-11-2022',
       active: false,
       remove: false,
     },
     {
       name: 'Название2',
-      description: `Идейные соображения высшего порядка, 
-а также реализация намеченных плановых заданий представляет собой интересный эксперимент 
-проверки модели развития`,
+      description: `Идейные соображения высшего порядка,
+     а также реализация намеченных плановых заданий представляет собой интересный эксперимент
+     проверки модели развития`,
       dateNote: '29-11-2022',
       active: false,
       remove: false,

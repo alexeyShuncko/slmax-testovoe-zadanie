@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Alert} from 'react-native';
-import {INote} from '../App';
+import {INote} from '../../App';
 
 type PropsAddNote = {
   data: INote[];
@@ -11,7 +11,9 @@ const AddNote = ({data, setData}: PropsAddNote) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const endEditingHandler = () => {
-    if (name && description) {
+    if (data.map(el => el.name).includes(name)) {
+      Alert.alert('Ошибка!', `Заметка "${name}" уже существует.`);
+    } else if (name && description) {
       const dateString = (date: Date) => {
         let dd = date.getDate();
         if (dd < 10) {
