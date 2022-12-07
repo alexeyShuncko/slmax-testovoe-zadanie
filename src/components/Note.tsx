@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import {INote} from '../models/models';
+import {IColors, INote} from '../models/models';
 import Swiper from 'react-native-swiper';
 import Comment from './Comment';
 import AddComment from './AddComment';
@@ -16,9 +16,10 @@ type PropsNote = {
   data: INote[];
   note: INote;
   setData: React.Dispatch<INote[]>;
+  COLOR: IColors;
 };
 
-const Note = ({data, note, setData}: PropsNote) => {
+const Note = ({data, note, setData, COLOR}: PropsNote) => {
   const [dataNote, setDataNote] = useState<INote>(note);
   const [remove, setRemove] = useState(0);
   const [addComment, setAddComment] = useState(false);
@@ -60,18 +61,30 @@ const Note = ({data, note, setData}: PropsNote) => {
             dataNote.active = !dataNote.active;
             setDataNote({...dataNote});
           }}>
-          <View style={styles.note}>
-            <Text style={styles.name}>{dataNote.name}</Text>
-            <Text style={styles.description}>
+          <View
+            style={[
+              styles.note,
+              {backgroundColor: COLOR.bgNote, borderColor: COLOR.borderColor},
+            ]}>
+            <Text style={[styles.name, {color: COLOR.text}]}>
+              {dataNote.name}
+            </Text>
+            <Text style={[styles.description, {color: COLOR.text}]}>
               {dataNote.description.slice(0, 20) + '...'}
             </Text>
             <Text style={[styles.arrow, {transform: [{rotate: '45deg'}]}]} />
           </View>
         </TouchableOpacity>
 
-        <View style={styles.note}>
-          <Text style={styles.name}>{dataNote.name}</Text>
-          <Text style={styles.description}>
+        <View
+          style={[
+            styles.note,
+            {backgroundColor: COLOR.bgNote, borderColor: COLOR.borderColor},
+          ]}>
+          <Text style={[styles.name, {color: COLOR.text}]}>
+            {dataNote.name}
+          </Text>
+          <Text style={[styles.description, {color: COLOR.text}]}>
             {dataNote.description.slice(0, 20) + '...'}
           </Text>
           <Text style={[styles.arrow, {transform: [{rotate: '45deg'}]}]} />
@@ -106,8 +119,12 @@ const Note = ({data, note, setData}: PropsNote) => {
       {dataNote.active === true && (
         <>
           <View style={styles.fullDescriptionBlock}>
-            <Text style={styles.date}>{dataNote.dateNote}</Text>
-            <Text style={styles.fullDescription}>{dataNote.description}</Text>
+            <Text style={[styles.date, {color: COLOR.text}]}>
+              {dataNote.dateNote}
+            </Text>
+            <Text style={[styles.fullDescription, {color: COLOR.text}]}>
+              {dataNote.description}
+            </Text>
             <TouchableOpacity
               onPress={() => {
                 setAddComment(!addComment);
@@ -124,6 +141,7 @@ const Note = ({data, note, setData}: PropsNote) => {
                 data={data}
                 setData={setData}
                 setAddComment={setAddComment}
+                COLOR={COLOR}
               />
             )}
             <View>
@@ -134,6 +152,7 @@ const Note = ({data, note, setData}: PropsNote) => {
                     key={com.title}
                     data={data}
                     setData={setData}
+                    COLOR={COLOR}
                   />
                 ))}
             </View>
@@ -154,7 +173,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginBottom: 10,
     borderRadius: 5,
-    borderColor: '#D2D2D2',
     borderWidth: 1,
   },
   name: {
@@ -204,8 +222,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: -1,
+    right: -1,
     borderRadius: 5,
     backgroundColor: '#E30000',
     paddingVertical: 10,

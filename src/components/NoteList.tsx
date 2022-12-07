@@ -1,20 +1,21 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {INote} from '../models/models';
+import {IColors, INote} from '../models/models';
 import Note from './Note';
 
 type PropsNoteList = {
   data: INote[];
   setData: React.Dispatch<INote[]>;
+  COLOR: IColors;
 };
 
-const NoteList = ({data, setData}: PropsNoteList) => {
+const NoteList = ({data, setData, COLOR}: PropsNoteList) => {
   return (
     <View style={styles.block}>
       {data.length !== 0 ? (
         data.map(note => (
           <View key={note.name}>
-            <Note note={note} setData={setData} data={data} />
+            <Note note={note} setData={setData} data={data} COLOR={COLOR} />
           </View>
         ))
       ) : (
@@ -28,7 +29,7 @@ const NoteList = ({data, setData}: PropsNoteList) => {
 
 const styles = StyleSheet.create({
   block: {
-    marginTop: 37,
+    marginTop: 20,
     width: '100%',
   },
   noNote: {

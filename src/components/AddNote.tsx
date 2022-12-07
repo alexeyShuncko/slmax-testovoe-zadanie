@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Alert, Text} from 'react-native';
-import {INote} from '../models/models';
+import {IColors, INote} from '../models/models';
 import {dateString} from '../helpers/dateString';
 
 type PropsAddNote = {
   data: INote[];
   setData: React.Dispatch<INote[]>;
+  COLOR: IColors;
 };
 
-const AddNote = ({data, setData}: PropsAddNote) => {
+const AddNote = ({data, setData, COLOR}: PropsAddNote) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const endEditingHandler = () => {
@@ -36,17 +37,18 @@ const AddNote = ({data, setData}: PropsAddNote) => {
       <Text style={styles.add}>Добавить заметку:</Text>
       <View style={styles.block}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, {color: COLOR.text}]}
           placeholder={'Название'}
-          placeholderTextColor={'black'}
+          placeholderTextColor={COLOR.text}
           maxLength={25}
           value={name}
           onChangeText={setName}
           onEndEditing={endEditingHandler}
         />
         <TextInput
-          style={styles.inputTwo}
+          style={[styles.inputTwo, {color: COLOR.text}]}
           placeholder={'Текст описание'}
+          placeholderTextColor={COLOR.text}
           value={description}
           onChangeText={setDescription}
           onEndEditing={endEditingHandler}

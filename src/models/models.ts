@@ -19,3 +19,10 @@ export interface IResponse {
   description: string;
   dateResponse: string;
 }
+
+export interface IColors {
+  text: string;
+  bg: string;
+  bgNote: string;
+  borderColor: string;
+}

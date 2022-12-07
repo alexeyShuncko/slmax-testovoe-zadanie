@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Alert, Text} from 'react-native';
-import {INote} from '../models/models';
+import {IColors, INote} from '../models/models';
 import {dateString} from '../helpers/dateString';
 
 type PropsAddNote = {
@@ -8,9 +8,16 @@ type PropsAddNote = {
   setData: React.Dispatch<INote[]>;
   setAddComment: React.Dispatch<boolean>;
   dataNote: INote;
+  COLOR: IColors;
 };
 
-const AddComment = ({data, setData, dataNote, setAddComment}: PropsAddNote) => {
+const AddComment = ({
+  data,
+  setData,
+  dataNote,
+  setAddComment,
+  COLOR,
+}: PropsAddNote) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const endEditingHandler = () => {
@@ -39,17 +46,18 @@ const AddComment = ({data, setData, dataNote, setAddComment}: PropsAddNote) => {
       <View style={styles.block}>
         <TextInput
           autoFocus={true}
-          style={styles.input}
+          style={[styles.input, {color: COLOR.text}]}
           placeholder={'Название комментария'}
-          placeholderTextColor={'black'}
+          placeholderTextColor={COLOR.text}
           maxLength={25}
           value={name}
           onChangeText={setName}
           onEndEditing={endEditingHandler}
         />
         <TextInput
-          style={styles.inputTwo}
+          style={[styles.inputTwo, {color: COLOR.text}]}
           placeholder={'Текст комментария'}
+          placeholderTextColor={COLOR.text}
           value={description}
           onChangeText={setDescription}
           onEndEditing={endEditingHandler}

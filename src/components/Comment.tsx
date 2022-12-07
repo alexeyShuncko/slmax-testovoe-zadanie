@@ -1,22 +1,25 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {IComment, INote} from '../models/models';
+import {IColors, IComment, INote} from '../models/models';
 import AddResponse from './AddResponse';
 
 type PropsComment = {
   com: IComment;
   setData: React.Dispatch<INote[]>;
   data: INote[];
+  COLOR: IColors;
 };
 
-const Comment = ({com, data, setData}: PropsComment) => {
+const Comment = ({com, data, setData, COLOR}: PropsComment) => {
   const [all, setAll] = useState(false);
   const [response, setResponse] = useState(false);
   return (
     <View>
       <View style={styles.comment}>
-        <Text style={styles.title}>{com.title}</Text>
-        <Text style={styles.description}>{com.description}</Text>
+        <Text style={[styles.title, {color: COLOR.text}]}>{com.title}</Text>
+        <Text style={[styles.description, {color: COLOR.text}]}>
+          {com.description}
+        </Text>
         <View style={styles.dateBlock}>
           <Text style={styles.date}>{com.dateComment}</Text>
           <TouchableOpacity onPress={() => setResponse(!response)}>
@@ -33,6 +36,7 @@ const Comment = ({com, data, setData}: PropsComment) => {
             setData={setData}
             com={com}
             setResponse={setResponse}
+            COLOR={COLOR}
           />
         )}
       </View>
@@ -41,8 +45,12 @@ const Comment = ({com, data, setData}: PropsComment) => {
           {com.response.length !== 0 &&
             com.response.map(res => (
               <View style={styles.responseBlock} key={res.title}>
-                <Text style={styles.title}>{res.title}</Text>
-                <Text style={styles.description}>{res.description}</Text>
+                <Text style={[styles.title, {color: COLOR.text}]}>
+                  {res.title}
+                </Text>
+                <Text style={[styles.description, {color: COLOR.text}]}>
+                  {res.description}
+                </Text>
                 <Text style={styles.date}>{res.dateResponse}</Text>
               </View>
             ))}
@@ -50,8 +58,10 @@ const Comment = ({com, data, setData}: PropsComment) => {
       ) : (
         <View>
           <View style={styles.responseBlock}>
-            <Text style={styles.title}>{com.response[0].title}</Text>
-            <Text style={styles.description}>
+            <Text style={[styles.title, {color: COLOR.text}]}>
+              {com.response[0].title}
+            </Text>
+            <Text style={[styles.description, {color: COLOR.text}]}>
               {com.response[0].description}
             </Text>
             <Text style={styles.date}>{com.response[0].dateResponse}</Text>
