@@ -4,8 +4,8 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 const NavBar = () => {
   return (
     <View style={styles.navbar}>
-      <Image style={styles.img} source={require('../Rectangle-5.png')} />
-      <Image style={styles.img} source={require('../Rectangle-4.png')} />
+      <Image style={styles.img} source={require('../images/Rectangle-5.png')} />
+      <Image style={styles.img} source={require('../images/Rectangle-4.png')} />
       <Text style={styles.text}>Заметки</Text>
     </View>
   );

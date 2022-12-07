@@ -3,28 +3,7 @@ import {StyleSheet, View, ScrollView} from 'react-native';
 import AddNote from './src/components/AddNote';
 import NavBar from './src/components/NavBar';
 import NoteList from './src/components/NoteList';
-
-export interface INote {
-  name: string;
-  description: string;
-  dateNote: string;
-  active: boolean;
-  remove: boolean;
-  comments: IComment[];
-}
-
-export interface IComment {
-  title: string;
-  description: string;
-  dateComment: string;
-  response: IResponse[];
-}
-
-export interface IResponse {
-  title: string;
-  description: string;
-  dateResponse: string;
-}
+import {INote} from './src/models/models';
 
 const App = () => {
   const [data, setData] = useState<INote[]>([

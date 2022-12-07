@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import {INote} from '../../App';
+import {INote} from '../models/models';
 import Swiper from 'react-native-swiper';
 import Comment from './Comment';
 import AddComment from './AddComment';

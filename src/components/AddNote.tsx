@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Alert, Text} from 'react-native';
-import {INote} from '../../App';
+import {INote} from '../models/models';
 import {dateString} from '../helpers/dateString';
 
 type PropsAddNote = {

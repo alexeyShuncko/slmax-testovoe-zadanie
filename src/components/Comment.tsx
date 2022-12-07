@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {IComment, INote} from '../../App';
+import {IComment, INote} from '../models/models';
 import AddResponse from './AddResponse';
 
 type PropsComment = {

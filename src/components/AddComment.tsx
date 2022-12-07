@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Alert, Text} from 'react-native';
-import {INote} from '../../App';
+import {INote} from '../models/models';
 import {dateString} from '../helpers/dateString';
 
 type PropsAddNote = {
@@ -16,6 +16,8 @@ const AddComment = ({data, setData, dataNote, setAddComment}: PropsAddNote) => {
   const endEditingHandler = () => {
     if (dataNote.comments.map(com => com.title).includes(name)) {
       Alert.alert('Ошибка!', `Комментарий "${name}" уже существует.`);
+    } else if (!name && !description) {
+      setAddComment(false);
     } else if (name && description) {
       dataNote.comments = [
         ...dataNote.comments,

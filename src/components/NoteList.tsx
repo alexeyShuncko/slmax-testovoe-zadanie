@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {INote} from '../../App';
+import {INote} from '../models/models';
 import Note from './Note';
 
 type PropsNoteList = {
