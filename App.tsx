@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import {Switch} from 'react-native-switch';
 import AddNote from './src/components/AddNote';
 import NavBar from './src/components/NavBar';
@@ -8,6 +14,7 @@ import {INote} from './src/models/models';
 import {COLORDARK} from './src/styles/colorDark';
 import {COLORLIGHT} from './src/styles/colorLight';
 import {MaterialIcon} from './src/components/Icon';
+import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 
 const App = () => {
   const [data, setData] = useState<INote[]>([
@@ -96,6 +103,13 @@ const App = () => {
   ]);
   const [thema, setThema] = useState(false);
   const COLOR = thema ? COLORDARK : COLORLIGHT;
+
+  const dateHandler = () => {
+    DateTimePickerAndroid.open({
+      value: new Date(),
+    });
+  };
+
   return (
     <ScrollView
       contentContainerStyle={[styles.appBlock, {backgroundColor: COLOR.bg}]}
@@ -104,6 +118,10 @@ const App = () => {
         <View style={styles.block}>
           <NavBar thema={thema} />
           <View style={styles.themaBlock}>
+            <TouchableOpacity onPress={dateHandler}>
+              <MaterialIcon name="calendar" color="#10637D" size={'medium'} />
+              <Text style={{fontSize: 13}}>30.11.2022 - 30.11.2022</Text>
+            </TouchableOpacity>
             <Switch
               value={thema}
               onValueChange={() => setThema(!thema)}
@@ -148,7 +166,8 @@ const styles = StyleSheet.create({
   themaBlock: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 30,
     marginTop: 10,
   },
