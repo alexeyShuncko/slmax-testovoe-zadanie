@@ -10,6 +10,7 @@ import {
 import {INote} from '../../App';
 import Swiper from 'react-native-swiper';
 import Comment from './Comment';
+import AddComment from './AddComment';
 
 type PropsNote = {
   data: INote[];
@@ -20,6 +21,7 @@ type PropsNote = {
 const Note = ({data, note, setData}: PropsNote) => {
   const [dataNote, setDataNote] = useState<INote>(note);
   const [remove, setRemove] = useState(0);
+  const [addComment, setAddComment] = useState(false);
   const [text, setText] = useState(5);
   const swiper = useRef(null);
 
@@ -102,15 +104,41 @@ const Note = ({data, note, setData}: PropsNote) => {
       </Swiper>
 
       {dataNote.active === true && (
-        <View style={styles.fullDescriptionBlock}>
-          <Text style={styles.date}>{dataNote.dateNote}</Text>
-          <Text style={styles.fullDescription}>{dataNote.description}</Text>
-          <View>
-            {dataNote.comments.map(com => (
-              <Comment com={com} key={com.title} />
-            ))}
+        <>
+          <View style={styles.fullDescriptionBlock}>
+            <Text style={styles.date}>{dataNote.dateNote}</Text>
+            <Text style={styles.fullDescription}>{dataNote.description}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setAddComment(!addComment);
+              }}>
+              {addComment ? (
+                <Text style={styles.addComment}>Закрыть поле ввода</Text>
+              ) : (
+                <Text style={styles.addComment}>Добавить комментарий</Text>
+              )}
+            </TouchableOpacity>
+            {addComment && (
+              <AddComment
+                dataNote={dataNote}
+                data={data}
+                setData={setData}
+                setAddComment={setAddComment}
+              />
+            )}
+            <View>
+              {dataNote.comments.length !== 0 &&
+                dataNote.comments.map(com => (
+                  <Comment
+                    com={com}
+                    key={com.title}
+                    data={data}
+                    setData={setData}
+                  />
+                ))}
+            </View>
           </View>
-        </View>
+        </>
       )}
     </View>
   );
@@ -192,6 +220,11 @@ const styles = StyleSheet.create({
     top: 10,
     right: 29,
     color: '#fff',
+  },
+  addComment: {
+    marginTop: 5,
+    fontSize: 10,
+    color: '#8F8F8F',
   },
 });
 

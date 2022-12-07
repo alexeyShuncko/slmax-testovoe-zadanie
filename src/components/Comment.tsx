@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {IComment} from '../../App';
+import {IComment, INote} from '../../App';
+import AddResponse from './AddResponse';
 
 type PropsComment = {
   com: IComment;
+  setData: React.Dispatch<INote[]>;
+  data: INote[];
 };
 
-const Comment = ({com}: PropsComment) => {
+const Comment = ({com, data, setData}: PropsComment) => {
   const [all, setAll] = useState(false);
+  const [response, setResponse] = useState(false);
   return (
     <View>
       <View style={styles.comment}>
@@ -15,20 +19,33 @@ const Comment = ({com}: PropsComment) => {
         <Text style={styles.description}>{com.description}</Text>
         <View style={styles.dateBlock}>
           <Text style={styles.date}>{com.dateComment}</Text>
-          <TouchableOpacity>
-            <Text style={styles.date}>Ответить</Text>
+          <TouchableOpacity onPress={() => setResponse(!response)}>
+            {response ? (
+              <Text style={styles.date}>Закрыть поле ввода</Text>
+            ) : (
+              <Text style={styles.date}>Ответить</Text>
+            )}
           </TouchableOpacity>
         </View>
+        {response && (
+          <AddResponse
+            data={data}
+            setData={setData}
+            com={com}
+            setResponse={setResponse}
+          />
+        )}
       </View>
-      {all ? (
+      {com.response.length === 0 ? null : all ? (
         <View>
-          {com.response.map(res => (
-            <View style={styles.responseBlock} key={res.title}>
-              <Text style={styles.title}>{res.title}</Text>
-              <Text style={styles.description}>{res.description}</Text>
-              <Text style={styles.date}>{res.dateResponse}</Text>
-            </View>
-          ))}
+          {com.response.length !== 0 &&
+            com.response.map(res => (
+              <View style={styles.responseBlock} key={res.title}>
+                <Text style={styles.title}>{res.title}</Text>
+                <Text style={styles.description}>{res.description}</Text>
+                <Text style={styles.date}>{res.dateResponse}</Text>
+              </View>
+            ))}
         </View>
       ) : (
         <View>
@@ -41,14 +58,15 @@ const Comment = ({com}: PropsComment) => {
           </View>
         </View>
       )}
-
-      <TouchableOpacity onPress={() => setAll(!all)}>
-        {all ? (
-          <Text style={styles.allResponse}>Скрыть ответы</Text>
-        ) : (
-          <Text style={styles.allResponse}>Показать все ответы</Text>
-        )}
-      </TouchableOpacity>
+      {com.response.length !== 0 && (
+        <TouchableOpacity onPress={() => setAll(!all)}>
+          {all ? (
+            <Text style={styles.allResponse}>Скрыть ответы</Text>
+          ) : (
+            <Text style={styles.allResponse}>Показать все ответы</Text>
+          )}
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

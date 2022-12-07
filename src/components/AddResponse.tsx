@@ -1,43 +1,43 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Alert, Text} from 'react-native';
-import {INote} from '../../App';
+import {IComment, INote} from '../../App';
 import {dateString} from '../helpers/dateString';
 
 type PropsAddNote = {
   data: INote[];
   setData: React.Dispatch<INote[]>;
+  com: IComment;
+  setResponse: React.Dispatch<boolean>;
 };
 
-const AddNote = ({data, setData}: PropsAddNote) => {
+const AddResponse = ({data, setData, com, setResponse}: PropsAddNote) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const endEditingHandler = () => {
-    if (data.map(el => el.name).includes(name)) {
-      Alert.alert('Ошибка!', `Заметка "${name}" уже существует.`);
+    if (com.response.map(res => res.title).includes(name)) {
+      Alert.alert('Ошибка!', `Ответ "${name}" уже существует.`);
     } else if (name && description) {
-      setData([
-        ...data,
+      com.response = [
+        ...com.response,
         {
-          name,
+          title: name,
           description,
-          dateNote: dateString(new Date()),
-          active: false,
-          remove: false,
-          comments: [],
+          dateResponse: dateString(new Date(), true),
         },
-      ]);
-      setName('');
-      setDescription('');
-      Alert.alert('Успешно!', `Заметка "${name}" добавлена.`);
+      ];
+      setData([...data]);
+      Alert.alert('Успешно!', `Ответ "${name}" добавлен.`);
+      setResponse(false);
     }
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.add}>Добавить заметку:</Text>
+      <Text style={styles.add}>Ответ к комментарию - "{com.title}":</Text>
       <View style={styles.block}>
         <TextInput
+          autoFocus={true}
           style={styles.input}
-          placeholder={'Название'}
+          placeholder={'Название ответа'}
           placeholderTextColor={'black'}
           maxLength={25}
           value={name}
@@ -46,7 +46,7 @@ const AddNote = ({data, setData}: PropsAddNote) => {
         />
         <TextInput
           style={styles.inputTwo}
-          placeholder={'Текст описание'}
+          placeholder={'Текст ответа'}
           value={description}
           onChangeText={setDescription}
           onEndEditing={endEditingHandler}
@@ -59,9 +59,9 @@ const AddNote = ({data, setData}: PropsAddNote) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    marginTop: 10,
   },
   add: {
-    marginHorizontal: 30,
     marginBottom: 5,
     color: '#8F8F8F',
     fontSize: 12,
@@ -70,8 +70,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#D2D2D2',
     borderWidth: 1,
-    marginHorizontal: 30,
-    marginBottom: 42,
     paddingLeft: 17,
     paddingRight: 27,
   },
@@ -88,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddNote;
+export default AddResponse;
