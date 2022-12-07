@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, ScrollView, Switch} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
+import {Switch} from 'react-native-switch';
 import AddNote from './src/components/AddNote';
 import NavBar from './src/components/NavBar';
 import NoteList from './src/components/NoteList';
 import {INote} from './src/models/models';
 import {COLORDARK} from './src/styles/colorDark';
 import {COLORLIGHT} from './src/styles/colorLight';
+import {MaterialIcon} from './src/components/Icon';
 
 const App = () => {
   const [data, setData] = useState<INote[]>([
@@ -104,10 +106,25 @@ const App = () => {
           <View style={styles.themaBlock}>
             <Switch
               value={thema}
+              onValueChange={() => setThema(!thema)}
+              renderInsideCircle={() =>
+                !thema ? (
+                  <MaterialIcon name="sun" color="#10637D" size={'medium'} />
+                ) : (
+                  <MaterialIcon name="moon" color="#7363D1" size={'medium'} />
+                )
+              }
+              renderActiveText={false}
+              renderInActiveText={false}
+              backgroundActive={'#7363D1'}
+              backgroundInactive={'#10637D'}
+            />
+            {/* <Switch
+              value={thema}
               onChange={() => setThema(!thema)}
               trackColor={{false: '#10637D', true: '#7363D1'}}
               thumbColor={'#D2D2D2'}
-            />
+            /> */}
           </View>
 
           <NoteList data={data} setData={setData} COLOR={COLOR} />
