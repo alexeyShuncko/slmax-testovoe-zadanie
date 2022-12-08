@@ -15,14 +15,13 @@ const NoteList = ({data, setData, COLOR, dataAll}: PropsNoteList) => {
     <View style={styles.block}>
       {data.length !== 0 ? (
         data.map(note => (
-          <View key={note.name}>
-            <Note
-              note={note}
-              setData={setData}
-              COLOR={COLOR}
-              dataAll={dataAll}
-            />
-          </View>
+          <Note
+            key={note.name}
+            note={note}
+            setData={setData}
+            COLOR={COLOR}
+            dataAll={dataAll}
+          />
         ))
       ) : (
         <View>

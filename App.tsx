@@ -136,7 +136,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   appBlock: {
-    minHeight: 625,
+    flexGrow: 1,
   },
   container: {
     flex: 1,
