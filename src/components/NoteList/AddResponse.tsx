@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Alert, Text} from 'react-native';
-import {IColors, IComment, INote} from '../models/models';
-import {dateString} from '../helpers/dateString';
+import {IColors, IComment, INote} from '../../models/models';
+import {dateString} from '../../helpers/dateString';
 
 type PropsAddNote = {
-  data: INote[];
   setData: React.Dispatch<INote[]>;
   com: IComment;
   setResponse: React.Dispatch<boolean>;
   COLOR: IColors;
+  dataAll: INote[];
 };
 
 const AddResponse = ({
-  data,
   setData,
   com,
   setResponse,
   COLOR,
+  dataAll,
 }: PropsAddNote) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -34,7 +34,7 @@ const AddResponse = ({
           dateResponse: dateString(new Date(), true),
         },
       ];
-      setData([...data]);
+      setData([...dataAll]);
       Alert.alert('Успешно!', `Ответ "${name}" добавлен.`);
       setResponse(false);
     }

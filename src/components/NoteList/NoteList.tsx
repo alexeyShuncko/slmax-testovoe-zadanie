@@ -1,21 +1,27 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {IColors, INote} from '../models/models';
+import {IColors, INote} from '../../models/models';
 import Note from './Note';
 
 type PropsNoteList = {
   data: INote[];
   setData: React.Dispatch<INote[]>;
   COLOR: IColors;
+  dataAll: INote[];
 };
 
-const NoteList = ({data, setData, COLOR}: PropsNoteList) => {
+const NoteList = ({data, setData, COLOR, dataAll}: PropsNoteList) => {
   return (
     <View style={styles.block}>
       {data.length !== 0 ? (
         data.map(note => (
           <View key={note.name}>
-            <Note note={note} setData={setData} data={data} COLOR={COLOR} />
+            <Note
+              note={note}
+              setData={setData}
+              COLOR={COLOR}
+              dataAll={dataAll}
+            />
           </View>
         ))
       ) : (

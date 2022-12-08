@@ -1,44 +1,53 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Alert, Text} from 'react-native';
-import {IColors, INote} from '../models/models';
-import {dateString} from '../helpers/dateString';
+import {IColors, INote} from '../../models/models';
+import {dateString} from '../../helpers/dateString';
 
 type PropsAddNote = {
-  data: INote[];
   setData: React.Dispatch<INote[]>;
+  setAddComment: React.Dispatch<boolean>;
+  dataNote: INote;
   COLOR: IColors;
+  dataAll: INote[];
 };
 
-const AddNote = ({data, setData, COLOR}: PropsAddNote) => {
+const AddComment = ({
+  setData,
+  dataNote,
+  setAddComment,
+  COLOR,
+  dataAll,
+}: PropsAddNote) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const endEditingHandler = () => {
-    if (data.map(el => el.name).includes(name)) {
-      Alert.alert('Ошибка!', `Заметка "${name}" уже существует.`);
+    if (dataNote.comments.map(com => com.title).includes(name)) {
+      Alert.alert('Ошибка!', `Комментарий "${name}" уже существует.`);
+    } else if (!name && !description) {
+      setAddComment(false);
     } else if (name && description) {
-      setData([
-        ...data,
+      dataNote.comments = [
+        ...dataNote.comments,
         {
-          name,
+          title: name,
           description,
-          dateNote: dateString(new Date()),
-          active: false,
-          remove: false,
-          comments: [],
+          dateComment: dateString(new Date(), true),
+          response: [],
         },
-      ]);
-      setName('');
-      setDescription('');
-      Alert.alert('Успешно!', `Заметка "${name}" добавлена.`);
+      ];
+      setData([...dataAll]);
+      Alert.alert('Успешно!', `Комментарий "${name}" добавлен.`);
+      setAddComment(false);
     }
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.add}>Добавить заметку:</Text>
+      <Text style={styles.add}>Комментарий к заметке - "{dataNote.name}":</Text>
       <View style={styles.block}>
         <TextInput
+          autoFocus={true}
           style={[styles.input, {color: COLOR.text}]}
-          placeholder={'Название'}
+          placeholder={'Название комментария'}
           placeholderTextColor={COLOR.text}
           maxLength={25}
           value={name}
@@ -47,7 +56,7 @@ const AddNote = ({data, setData, COLOR}: PropsAddNote) => {
         />
         <TextInput
           style={[styles.inputTwo, {color: COLOR.text}]}
-          placeholder={'Текст описание'}
+          placeholder={'Текст комментария'}
           placeholderTextColor={COLOR.text}
           value={description}
           onChangeText={setDescription}
@@ -61,9 +70,9 @@ const AddNote = ({data, setData, COLOR}: PropsAddNote) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    marginTop: 10,
   },
   add: {
-    marginHorizontal: 30,
     marginBottom: 5,
     color: '#8F8F8F',
     fontSize: 12,
@@ -72,8 +81,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#D2D2D2',
     borderWidth: 1,
-    marginHorizontal: 30,
-    marginBottom: 42,
     paddingLeft: 17,
     paddingRight: 27,
   },
@@ -90,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddNote;
+export default AddComment;

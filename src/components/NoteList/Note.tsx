@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {RefObject, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -7,24 +7,24 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import {IColors, INote} from '../models/models';
+import {IColors, INote} from '../../models/models';
 import Swiper from 'react-native-swiper';
 import Comment from './Comment';
 import AddComment from './AddComment';
 
 type PropsNote = {
-  data: INote[];
   note: INote;
   setData: React.Dispatch<INote[]>;
   COLOR: IColors;
+  dataAll: INote[];
 };
 
-const Note = ({data, note, setData, COLOR}: PropsNote) => {
+const Note = ({note, setData, COLOR, dataAll}: PropsNote) => {
   const [dataNote, setDataNote] = useState<INote>(note);
   const [remove, setRemove] = useState(0);
   const [addComment, setAddComment] = useState(false);
   const [text, setText] = useState(5);
-  const swiper = useRef(null);
+  const swiper = useRef(null) as RefObject<Swiper>;
 
   function timer(num: number) {
     let my = num;
@@ -34,7 +34,7 @@ const Note = ({data, note, setData, COLOR}: PropsNote) => {
       if (newNum >= 1) {
         timer(newNum);
       } else {
-        setData([...data.filter(el => el.name !== dataNote.name)]);
+        setData([...dataAll.filter(el => el.name !== dataNote.name)]);
         Alert.alert('Успешно!', `Заметка "${dataNote.name}" удалена.`);
       }
     }, 1000);
@@ -101,7 +101,7 @@ const Note = ({data, note, setData, COLOR}: PropsNote) => {
                 setText(5);
                 dataNote.remove = false;
                 setDataNote({...dataNote});
-                swiper.current?.scrollBy(-1);
+                swiper!.current!.scrollBy(-1);
               }
             }}>
             {dataNote.remove === false ? (
@@ -138,10 +138,10 @@ const Note = ({data, note, setData, COLOR}: PropsNote) => {
             {addComment && (
               <AddComment
                 dataNote={dataNote}
-                data={data}
                 setData={setData}
                 setAddComment={setAddComment}
                 COLOR={COLOR}
+                dataAll={dataAll}
               />
             )}
             <View>
@@ -150,9 +150,9 @@ const Note = ({data, note, setData, COLOR}: PropsNote) => {
                   <Comment
                     com={com}
                     key={com.title}
-                    data={data}
                     setData={setData}
                     COLOR={COLOR}
+                    dataAll={dataAll}
                   />
                 ))}
             </View>

@@ -25,4 +25,10 @@ export interface IColors {
   bg: string;
   bgNote: string;
   borderColor: string;
+  primaryColor: string;
+}
+
+export interface IPeriod {
+  periodS: Date;
+  periodPo: Date;
 }

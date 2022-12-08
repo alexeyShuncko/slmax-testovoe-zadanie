@@ -7,11 +7,11 @@ type PropsNavBar = {
 
 const NavBar = ({thema}: PropsNavBar) => {
   const path5 = thema
-    ? require('../images/dark5.png')
-    : require('../images/Rectangle-5.png');
+    ? require('../../images/dark5.png')
+    : require('../../images/Rectangle-5.png');
   const path4 = thema
-    ? require('../images/dark4.png')
-    : require('../images/Rectangle-4.png');
+    ? require('../../images/dark4.png')
+    : require('../../images/Rectangle-4.png');
   return (
     <View style={styles.navbar}>
       <Image style={styles.img} source={path5} />

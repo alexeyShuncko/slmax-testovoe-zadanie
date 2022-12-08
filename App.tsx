@@ -1,25 +1,18 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
-import {Switch} from 'react-native-switch';
-import AddNote from './src/components/AddNote';
-import NavBar from './src/components/NavBar';
-import NoteList from './src/components/NoteList';
-import {INote} from './src/models/models';
+import {StyleSheet, View, ScrollView} from 'react-native';
+import {INote, IPeriod} from './src/models/models';
+import NavBar from './src/components/NawBar/NavBar';
+import SettingNotes from './src/components/SettingNotes/SettingNotes';
+import NoteList from './src/components/NoteList/NoteList';
+import AddNote from './src/components/AddNote/AddNote';
 import {COLORDARK} from './src/styles/colorDark';
 import {COLORLIGHT} from './src/styles/colorLight';
-import {MaterialIcon} from './src/components/Icon';
-import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
+import {DateRevers} from './src/helpers/dateRevers';
 
 const App = () => {
-  const [data, setData] = useState<INote[]>([
+  const [dataAll, setData] = useState<INote[]>([
     {
-      name: 'Заметка',
+      name: 'Заметкa',
       description: `Идейные соображения высшего порядка, 
 а также реализация намеченных плановых заданий представляет собой интересный эксперимент 
 проверки модели развития`,
@@ -74,7 +67,7 @@ const App = () => {
       description: `Идейные соображения высшего порядка, 
 а также реализация намеченных плановых заданий представляет собой интересный эксперимент 
 проверки модели развития`,
-      dateNote: '29-11-2022',
+      dateNote: '30-11-2022',
       active: false,
       remove: false,
       comments: [
@@ -102,13 +95,17 @@ const App = () => {
     },
   ]);
   const [thema, setThema] = useState(false);
+  const [period, setPeriod] = useState<IPeriod>({
+    periodPo: new Date(),
+    periodS: new Date('2022-11-25'),
+  });
   const COLOR = thema ? COLORDARK : COLORLIGHT;
 
-  const dateHandler = () => {
-    DateTimePickerAndroid.open({
-      value: new Date(),
-    });
-  };
+  const data = dataAll.filter(
+    el =>
+      new Date(DateRevers(el.dateNote)) >= period.periodS &&
+      new Date(DateRevers(el.dateNote)) <= period.periodPo,
+  );
 
   return (
     <ScrollView
@@ -117,37 +114,21 @@ const App = () => {
       <View style={styles.container}>
         <View style={styles.block}>
           <NavBar thema={thema} />
-          <View style={styles.themaBlock}>
-            <TouchableOpacity onPress={dateHandler}>
-              <MaterialIcon name="calendar" color="#10637D" size={'medium'} />
-              <Text style={{fontSize: 13}}>30.11.2022 - 30.11.2022</Text>
-            </TouchableOpacity>
-            <Switch
-              value={thema}
-              onValueChange={() => setThema(!thema)}
-              renderInsideCircle={() =>
-                !thema ? (
-                  <MaterialIcon name="sun" color="#10637D" size={'medium'} />
-                ) : (
-                  <MaterialIcon name="moon" color="#7363D1" size={'medium'} />
-                )
-              }
-              renderActiveText={false}
-              renderInActiveText={false}
-              backgroundActive={'#7363D1'}
-              backgroundInactive={'#10637D'}
-            />
-            {/* <Switch
-              value={thema}
-              onChange={() => setThema(!thema)}
-              trackColor={{false: '#10637D', true: '#7363D1'}}
-              thumbColor={'#D2D2D2'}
-            /> */}
-          </View>
-
-          <NoteList data={data} setData={setData} COLOR={COLOR} />
+          <SettingNotes
+            period={period}
+            setPeriod={setPeriod}
+            thema={thema}
+            setThema={setThema}
+            COLOR={COLOR}
+          />
+          <NoteList
+            data={data}
+            setData={setData}
+            COLOR={COLOR}
+            dataAll={dataAll}
+          />
         </View>
-        <AddNote data={data} setData={setData} COLOR={COLOR} />
+        <AddNote data={dataAll} setData={setData} COLOR={COLOR} />
       </View>
     </ScrollView>
   );
@@ -162,14 +143,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  themaBlock: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 30,
-    marginTop: 10,
   },
   block: {
     width: '100%',

@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {IColors, IComment, INote} from '../models/models';
+import {IColors, IComment, INote} from '../../models/models';
 import AddResponse from './AddResponse';
 
 type PropsComment = {
   com: IComment;
   setData: React.Dispatch<INote[]>;
-  data: INote[];
   COLOR: IColors;
+  dataAll: INote[];
 };
 
-const Comment = ({com, data, setData, COLOR}: PropsComment) => {
+const Comment = ({com, setData, COLOR, dataAll}: PropsComment) => {
   const [all, setAll] = useState(false);
   const [response, setResponse] = useState(false);
   return (
@@ -32,11 +32,11 @@ const Comment = ({com, data, setData, COLOR}: PropsComment) => {
         </View>
         {response && (
           <AddResponse
-            data={data}
             setData={setData}
             com={com}
             setResponse={setResponse}
             COLOR={COLOR}
+            dataAll={dataAll}
           />
         )}
       </View>
