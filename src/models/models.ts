@@ -26,6 +26,7 @@ export interface IColors {
   bgNote: string;
   borderColor: string;
   primaryColor: string;
+  secondaryColor: string;
 }
 
 export interface IPeriod {

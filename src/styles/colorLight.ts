@@ -6,4 +6,5 @@ export const COLORLIGHT: IColors = {
   bgNote: '#fff',
   borderColor: '#D2D2D2',
   primaryColor: '#10637D',
+  secondaryColor: '#10637D',
 };

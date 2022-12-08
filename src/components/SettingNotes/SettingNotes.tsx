@@ -29,7 +29,7 @@ const SettingNotes = ({
           onValueChange={setThema}
           renderInsideCircle={() => (
             <MaterialIcon
-              name="sun"
+              name={!thema ? 'sun' : 'moon'}
               color={COLOR.primaryColor}
               size={'medium'}
             />
@@ -37,7 +37,7 @@ const SettingNotes = ({
           renderActiveText={false}
           renderInActiveText={false}
           backgroundActive={COLOR.primaryColor}
-          backgroundInactive={'#10637D'}
+          backgroundInactive={COLOR.secondaryColor}
         />
       </View>
     </View>

@@ -6,4 +6,5 @@ export const COLORDARK: IColors = {
   bgNote: 'grey',
   borderColor: 'grey',
   primaryColor: '#7363D1',
+  secondaryColor: '#10637D',
 };

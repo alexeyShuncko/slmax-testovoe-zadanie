@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    fontFamily: 'Raleway',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
