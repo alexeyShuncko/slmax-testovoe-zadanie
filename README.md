@@ -15,22 +15,22 @@
 </h3>
 <div>
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/1/screen.png"
     alt="Экран заметок" />
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/1/screenOpen.png"
     alt="Экран заметок с полным текстом" />
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/1/remove.png"
     alt="Удаление заметки" />
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/1/5sec.png"
     alt="Обратный отсчёт" />
@@ -47,12 +47,12 @@
 </h3>
 <div>
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/2/comment.png"
     alt="Комментарий" />
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/2/response.png"
     alt="Ответ на комментарий" />
@@ -60,17 +60,17 @@
 <h3>Реализована смена тем по нажатию переключателя.</h3>
 <div>
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/3/dark.png"
     alt="Комментарий" />
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/3/darkAll.png"
     alt="Ответ на комментарий" />
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/3/light.png"
     alt="Ответ на комментарий" />
@@ -78,7 +78,7 @@
 <h3>Реализована фильтрация заметок по выбранному периоду времени.</h3>
 <div>
   <img
-    height="40%"
+    height="20%"
     style="display: inline-block"
     src="src/images/readmy/4/sort.png"
     alt="Сортировка" />
